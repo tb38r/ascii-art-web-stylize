@@ -1,0 +1,28 @@
+body {
+    background-color:  #f2f2f2;
+    font-family: 'Courgette', sans-serif;
+}
+
+.first {
+    display: flex;
+    justify-content: center;
+}
+
+.second {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    color: blue;
+    background-color: green;
+}
+
+.asciibox {
+    /* display: flex;
+    justify-content: ; */
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    border: solid red;  
+}

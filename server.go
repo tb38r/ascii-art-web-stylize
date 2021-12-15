@@ -149,7 +149,9 @@ func Newline(n string, y map[int][]string) string {
 // main runs the api(server) and its respective handlers
 func main() {
 	tpl = template.Must(template.ParseGlob("templates/*.html"))
+	// http.PathPrefix("/styles/").Handler(http.StripPrefix("/styles/",
 	http.HandleFunc("/", indexHandler)
+	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("templates/styles/"))))
 	http.HandleFunc("/ascii-art", processHandler)
 	http.ListenAndServe(":8080", nil)
 }
