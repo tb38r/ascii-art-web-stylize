@@ -3,26 +3,32 @@ body {
     font-family: 'Courgette', sans-serif;
 }
 
-.first {
+.options {
     display: flex;
     justify-content: center;
 }
 
-.second {
+.usersubmit {
     display: flex;
     justify-content: center;
 }
 
 .button {
-    color: blue;
-    background-color: green;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+}
+
+.button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .asciibox {
     /* display: flex;
-    justify-content: ; */
+    justify-content: space-around; */
     margin: auto;
     width: 50%;
     text-align: center;
-    border: solid red;  
+    /* border: solid red;   */
 }

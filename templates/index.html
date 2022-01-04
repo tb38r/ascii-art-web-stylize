@@ -8,32 +8,28 @@
       <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
    </head>
    <body>
-      <div class=first>
+      <div class=options>
          <form id="bannerHeader" action="/ascii-art" method="POST">
-            <h1>Ascii Art</h1>
+            <h1 style="font-size: 45px;">Ascii Art</h1>
             <p>Select Banner Type</p>
-            <input type="radio" id="ban1"
-               name="banner" value={{.Ban1}}>
+            <input type="radio" id="ban1" name="banner" value={{.Ban1}}>
             <label for="ban1">{{.Ban1}}</label><br>
-            <input type="radio" id="ban2"
-               name="banner" value={{.Ban2}}>
+            <input type="radio" id="ban2" name="banner" value={{.Ban2}}>
             <label for="ban2">{{.Ban2}}</label><br>
-            <input type="radio" id="ban3"
-               name="banner" value={{.Ban3}}>
+            <input type="radio" id="ban3" name="banner" value={{.Ban3}}>
             <label for="ban3">{{.Ban3}}</label><br>
-         </div>
-         <div class=second>
-            <textarea id ="textarea" name="textbox"  placeholder="Enter text (Max 2 lines)" action="/ascii-art" method="POST"  rows="2" cols="50" ></textarea>
             <br>
-            <input type= "submit" value="SUBMIT" class= "button"/>
-         </form>
-         <br>
-         </div>
-         <br>
-         <br>
-         <div class="asciibox" >
-            <pre>{{.String1}}</pre> 
-            <pre>{{.String2}}</pre>
-         </div>
+            <br>
+      </div>
+      <div class="usersubmit">
+            <textarea id ="textarea" name="textbox"  placeholder="Enter text (Max 2 lines)" action="/ascii-art" method="POST"  rows="2" cols="50" style="border-radius:4px;" ></textarea>
+            <input type= "submit" value="Asciify" class= "button"/>
+      </div>
+      <br>
+      <br>
+      <div class="asciibox" >
+         <pre>{{.String1}}</pre> 
+         <pre>{{.String2}}</pre>
+      </div>
    </body>
 </html>
