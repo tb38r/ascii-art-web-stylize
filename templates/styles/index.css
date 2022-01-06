@@ -25,10 +25,7 @@ body {
 }
 
 .asciibox {
-    /* display: flex;
-    justify-content: space-around; */
     margin: auto;
     width: 50%;
     text-align: center;
-    /* border: solid red;   */
 }
