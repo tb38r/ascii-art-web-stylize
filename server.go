@@ -15,7 +15,6 @@ type Banner struct {
 	Ban2    string
 	Ban3    string
 	String1 string
-	String2 string
 }
 
 var tpl *template.Template
@@ -94,62 +93,38 @@ func processHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// convert textbox to bytes to figure out where linebreak is (10)
-	b := []byte(testReturn.textbox)
-	count := 0
-	for _, num := range b {
-		count++
-		if num == 10 {
-			break
-		}
+	p := Banner{
+		Ban1:    "Shadow",
+		Ban2:    "Standard",
+		Ban3:    "Thinkertoy",
+		String1: Newline(testReturn.textbox, asciiChrs),
 	}
-
-	// checking if there is linebreak in string, returning the string seperated on 2 lines if there is
-	// 2nd line is an empty string if there isnt a line break
-	if strings.Contains(testReturn.textbox, "\n") {
-		p := Banner{
-			Ban1:    "Shadow",
-			Ban2:    "Standard",
-			Ban3:    "Thinkertoy",
-			String1: Newline(testReturn.textbox[:count-2], asciiChrs),
-			String2: Newline(testReturn.textbox[count:], asciiChrs),
-		}
-		if err := tpl.ExecuteTemplate(w, "index.html", p); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	} else {
-		p := Banner{
-			Ban1:    "Shadow",
-			Ban2:    "Standard",
-			Ban3:    "Thinkertoy",
-			String1: Newline(testReturn.textbox, asciiChrs),
-			String2: "",
-		}
-		if err := tpl.ExecuteTemplate(w, "index.html", p); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
+	if err := tpl.ExecuteTemplate(w, "index.html", p); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 // Newline function returns the ascii art string horizontally
 func Newline(n string, y map[int][]string) string {
-
-	var empty string
-	for j := 0; j < len(y[32]); j++ {
-		var line string
-		for _, letter := range n {
-			line = line + string((y[int(letter)][j]))
+	var asciiString string
+	replaceNewline := strings.ReplaceAll(n, "\r\n", "\\n")
+	wordSlice := strings.Split(replaceNewline, "\\n")
+	for _, word := range wordSlice {
+		for j := 0; j < len(y[32]); j++ {
+			var line string
+			for _, letter := range word {
+				line = line + string((y[int(letter)][j]))
+			}
+			asciiString += line + "\n"
+			line = ""
 		}
-		empty += line + "\n"
-		line = ""
 	}
-	return empty
+	return asciiString
 }
 
 // main runs the api(server) and its respective handlers
 func main() {
 	tpl = template.Must(template.ParseGlob("templates/*.html"))
-	// http.PathPrefix("/styles/").Handler(http.StripPrefix("/styles/",
 	http.HandleFunc("/", indexHandler)
 	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("templates/styles/"))))
 	http.HandleFunc("/ascii-art", processHandler)
